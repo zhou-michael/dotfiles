@@ -1,10 +1,15 @@
-sketchybar  --add   item battery right \
-            --set   battery \
-                        icon.y_offset=1 \
-                        icon.font="FantasqueSansMono Nerd Font:Bold:14.0" \
-                        drawing=on \
-                        background.padding_left=15 \
-                        update_freq=10 \
-                        script="$PLUGIN_DIR/battery.sh" \
-           --subscribe battery system_woke
+#!/bin/bash
 
+battery=(
+  script="$PLUGIN_DIR/battery.sh"
+  icon.font="$FONT:Regular:19.0"
+  padding_right=5
+  padding_left=0
+  label.drawing=off
+  update_freq=120
+  updates=on
+)
+
+sketchybar --add item battery right      \
+           --set battery "${battery[@]}" \
+           --subscribe battery power_source_change system_woke

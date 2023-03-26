@@ -33,15 +33,16 @@ do
   sketchybar --add space      space.$sid left                               \
              --set space.$sid associated_space=$sid                         \
                               icon=${SPACE_ICONS[i]}                        \
-                              icon.padding_left=5                           \
-                              icon.padding_right=2                          \
+                              icon.padding_left=7                           \
+                              icon.padding_right=7                          \
                               icon.highlight_color=$RED                     \
                               icon.font="$FONT:Bold:12.0"                   \
                               icon.y_offset=1                               \
-                              background.border_color=$WHITE                \
-                              background.padding_left=4                     \
+                              background.border_width=2                     \
+                              background.padding_left=2                     \
                               background.padding_right=2                    \
                               background.color=$BACKGROUND_1                \
+                              background.border_color=$BACKGROUND_2         \
                               background.drawing=on                         \
                               background.corner_radius=6                    \
                               label.font="sketchybar-app-font:Regular:11.0" \
@@ -49,7 +50,7 @@ do
                               label.background.drawing=on                   \
                               label.background.corner_radius=6              \
                               label.padding_left=0                          \
-                              label.padding_right=13                        \
+                              label.padding_right=0                        \
                               label.drawing=off                             \
                               click_script="$SPACE_CLICK_SCRIPT"            \
                               script="$PLUGIN_DIR/space.sh"                 
@@ -62,4 +63,5 @@ sketchybar   --add item       separator left                          \
                               background.padding_right=2             \
                               label.drawing=off                       \
                               associated_display=active               \
+                              click_script='yabai -m space --create && sketchybar --trigger space_change' \
                               icon.color=$WHITE
