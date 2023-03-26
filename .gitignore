@@ -12,3 +12,7 @@ fontforge/
 
 # gh has some tokens probably lol
 gh/
+
+sketchybar*/
+
+!sketchybar/
