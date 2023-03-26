@@ -87,3 +87,7 @@ let g:vimtex_compiler_latexmk = {
 let g:tex_conceal='abdmgs'
 let g:vimtex_view_skim_sync = 1
 
+" ultisnips
+let g:UltiSnipsExpandTrigger = '<c-h>'
+let g:UltiSnipsJumpForwardTrigger = '<c-j>'
+let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
