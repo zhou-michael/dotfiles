@@ -11,7 +11,9 @@ SPACE_CLICK_SCRIPT="yabai -m space --focus \$SID 2>/dev/null"
 #             --set space.$sid associated_space=$sid                         \
 #                              icon=${SPACE_ICONS[i]}                        \
 #                              icon.padding_left=14                          \
-#                              icon.padding_right=16                         \ label.padding_right=33                        \ icon.highlight_color=$RED                     \
+#                              icon.padding_right=16                         \
+#                              label.padding_right=33                        \
+#                              icon.highlight_color=$RED                     \
 #                              background.padding_left=-8                    \
 #                              background.padding_right=-8                   \
 #                              background.color=$BACKGROUND_1                \

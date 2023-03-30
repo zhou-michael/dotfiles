@@ -8,6 +8,7 @@ sketchybar --add item     calendar right                    \
                           label.align=right                 \
                           background.padding_left=0         \
                           padding_left=15                   \
+                          padding_right=16                  \
                           update_freq=5                     \
                           script="$PLUGIN_DIR/calendar.sh"  \
                           click_script="$PLUGIN_DIR/zen.sh" \
