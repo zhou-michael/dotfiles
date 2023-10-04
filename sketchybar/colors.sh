@@ -4,7 +4,8 @@
 
 # Color Palette
 export BLACK=0xff181926
-export WHITE=0xffcad3f5
+#export WHITE=0xffcad3f5
+export WHITE=0xffeae3f5
 export RED=0xffed8796
 export GREEN=0xffa6da95
 export BLUE=0xff8aadf4
@@ -16,7 +17,9 @@ export TRANSPARENT=0x00000000
 
 # General bar colors
 # export BAR_COLOR=0xff1e1e2e
-export BAR_COLOR=0x25000000
+export BAR_COLOR=0x395d382c
+export SPACES_COLOR=0x444d281c
+export SPACES_BORDER_COLOR=0x664d281c
 export BAR_BORDER_COLOR=0xff494d64 #0xa024273a
 export ICON_COLOR=$WHITE # Color of all icons
 export LABEL_COLOR=$WHITE # Color of all labels

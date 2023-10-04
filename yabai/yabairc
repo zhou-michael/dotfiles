@@ -31,12 +31,12 @@ yabai -m config                                 \
     split_ratio                  0.50           \
     split_type                   auto           \
     auto_balance                 on \
-    top_padding                  10             \
-    bottom_padding               10             \
-    left_padding                 10             \
-    right_padding                10             \
-    window_gap                   10             \
-    external_bar                 all:36:0       \
+    top_padding                  8              \
+    bottom_padding               8              \
+    left_padding                 8              \
+    right_padding                8              \
+    window_gap                   8              \
+    external_bar                 all:0:0       \
     layout                       bsp            \
     mouse_modifier               fn             \
     mouse_action1                move           \
@@ -51,6 +51,7 @@ yabai -m config                                 \
 yabai -m rule --add label="Finder" app="^Finder$" title=".*" manage=off
 yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
 yabai -m rule --add label="System Settings" app="^System Settings$" title=".*" manage=off
+yabai -m rule --add label="System Information" app="^System Information$" title=".*" manage=off
 yabai -m rule --add label="App Store" app="^App Store$" manage=off
 yabai -m rule --add label="Activity Monitor" app="^Activity Monitor$" manage=off
 yabai -m rule --add label="Calculator" app="^Calculator$" manage=off
@@ -66,6 +67,6 @@ yabai -m rule --add label="Installer" app="^Installer$" title=".*" manage=off
 ### SIGNALS (for sketchybar) ###
 ################################
 
-yabai -m signal --add event=window_focused action="sketchybar --trigger window_focus"
+# yabai -m signal --add event=window_focused action="sketchybar --trigger window_focus"
 yabai -m signal --add event=window_created action="sketchybar --trigger windows_on_spaces"
 yabai -m signal --add event=window_destroyed action="sketchybar --trigger windows_on_spaces"

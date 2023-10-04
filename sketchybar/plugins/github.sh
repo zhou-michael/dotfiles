@@ -8,7 +8,7 @@ update() {
   COUNT="$(echo "$NOTIFICATIONS" | jq 'length')"
   args=()
   if [ "$NOTIFICATIONS" = "[]" ]; then
-    args+=(--set $NAME icon=$BELL label="0")
+    args+=(--set $NAME icon=$BELL label="")
   else
     args+=(--set $NAME icon=$BELL_DOT label="$COUNT")
   fi

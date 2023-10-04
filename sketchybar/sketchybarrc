@@ -29,7 +29,8 @@ sketchybar --bar     height=36                                         \
                      corner_radius=0                                   \
                      y_offset=0                                        \
                      margin=0                                          \
-                     blur_radius=25                                    \
+                     blur_radius=30                                    \
+                     notch_width=150                                   \
                                                                        \
            --default updates=when_shown                                \
                      icon.font="$FONT:Bold:14.0"                       \
@@ -56,19 +57,19 @@ source "$ITEM_DIR/spaces.sh"
 source "$ITEM_DIR/front_app.sh"
 
 # Center
-source "$ITEM_DIR/spotify.sh"
 
 # Right
 source "$ITEM_DIR/calendar.sh"
 # source "$ITEM_DIR/divider.sh"
-source "$ITEM_DIR/brew.sh"
-source "$ITEM_DIR/github.sh"
+# source "$ITEM_DIR/brew.sh"
+# source "$ITEM_DIR/github.sh"
 source "$ITEM_DIR/battery.sh"
 source "$ITEM_DIR/volume.sh"
 # source "$ITEM_DIR/weather.sh"
-source "$ITEM_DIR/cpu.sh"
+# source "$ITEM_DIR/cpu.sh"
+source "$ITEM_DIR/spotify.sh"
 
-sketchybar --trigger window_focus
+# sketchybar --trigger window_focus
 sketchybar --trigger windows_on_spaces
 # Forcing all item scripts to run (never do this outside of sketchybarrc)
 sketchybar --update

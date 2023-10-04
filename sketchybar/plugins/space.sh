@@ -2,9 +2,9 @@
 
 source ~/.config/sketchybar/colors.sh
 
-BORDER=$BACKGROUND_2
+BORDER=$SPACES_BORDER_COLOR
 if [ "$SELECTED" = "true" ]; then
-    BORDER=$GREY
+    BORDER=0xbbedc8cc
 fi
 
-sketchybar --animate tanh 20 --set $NAME background.color=$BACKGROUND_1 background.border_color=$BORDER icon.color=$WHITE label.color=$WHITE
+sketchybar --animate tanh 20 --set $NAME background.border_color=$BORDER icon.color=$WHITE label.color=$WHITE

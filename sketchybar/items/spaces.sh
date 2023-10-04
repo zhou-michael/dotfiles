@@ -43,8 +43,8 @@ do
                               background.border_width=2                     \
                               background.padding_left=2                     \
                               background.padding_right=2                    \
-                              background.color=$BACKGROUND_1                \
-                              background.border_color=$BACKGROUND_2         \
+                              background.color=$SPACES_COLOR                \
+                              background.border_color=$SPACES_BORDER_COLOR  \
                               background.drawing=on                         \
                               background.corner_radius=6                    \
                               label.font="sketchybar-app-font:Regular:11.0" \

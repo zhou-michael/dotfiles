@@ -10,4 +10,3 @@ if status is-interactive
     starship init fish | source
 end
 
-fish_add_path /usr/local/smlnj/bin

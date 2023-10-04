@@ -41,7 +41,6 @@ require('packer').startup(function()
     -------------
     --- utils ---
     -------------
-    use 'lewis6991/spellsitter.nvim'
     use 'windwp/nvim-autopairs'
     use 'tpope/vim-fugitive'
     use 'lewis6991/gitsigns.nvim'

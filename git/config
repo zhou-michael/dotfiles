@@ -1,6 +1,5 @@
 [init]
 	defaultBranch = main
-	templateDir = /Users/michaelzhou/.git_templates
 [user]
 	name = Michael Zhou
 	email = micha.zhou@gmail.com

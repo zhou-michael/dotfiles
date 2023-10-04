@@ -13,8 +13,12 @@ case "$COUNT" in
   ;;
   [1-9]) COLOR=$WHITE
   ;;
-  0) COLOR=$GREEN
+  0) COLOR=$WHITE
   ;;
 esac
+
+if [ "$COUNT" -eq "0" ]; then
+    COUNT="";
+fi
 
 sketchybar --set $NAME label=$COUNT icon.color=$COLOR

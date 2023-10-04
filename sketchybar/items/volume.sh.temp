@@ -13,20 +13,7 @@ volume_slider=(
   slider.knob.drawing=off
 )
 
-#volume_icon=(
-#  click_script="$PLUGIN_DIR/volume_click.sh"
-#  padding_left=10
-#  icon=$VOLUME_100
-#  icon.width=0
-#  icon.align=left
-#  icon.color=$GREY
-#  icon.font="$FONT:Regular:14.0"
-#  label.width=25
-#  label.align=left
-#  label.font="$FONT:Regular:14.0"
-#)
-
-volume_icon=(
+volume_alias=(
   click_script="$PLUGIN_DIR/volume_click.sh"
   icon.drawing=off
   label.drawing=off
@@ -49,10 +36,9 @@ sketchybar --add slider volume right            \
                               mouse.entered     \
                               mouse.exited      \
                                                 \
-           --add alias "Control Center,Sound" right \
-           --rename "Control Center,Sound" volume_icon \
-           --set volume_icon "${volume_icon[@]}"
-#           --add item volume_icon right         \
+           --add alias "Control Center,Sound" right      \
+           --rename "Control Center,Sound" volume_alias  \
+           --set volume_alias "${volume_alias[@]}"
 
-sketchybar --add bracket status battery volume volume_icon github.bell brew \
+sketchybar --add bracket status battery volume volume_alias github.bell brew \
            --set status "${status_bracket[@]}"
