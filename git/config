@@ -4,7 +4,7 @@
 	name = Michael Zhou
 	email = micha.zhou@gmail.com
 [core]
-	editor = /usr/local/bin/nvim
+	editor = /opt/homebrew/bin/nvim
 [transfer]
 	fsckobjects = true
 [alias]
