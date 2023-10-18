@@ -4,16 +4,16 @@ return {
         lazy = false,
         opts = {
             options = {
-                section_separators = { left = '', right = '' },
-                component_separators = { left = '|', right = '|' },
+                section_separators = { left = "", right = "" },
+                component_separators = { left = "|", right = "|" },
             },
             sections = {
-                lualine_a = {'mode'},
-                lualine_b = {'branch', 'diff', 'diagnostics'},
-                lualine_c = {'filename'},
-                lualine_x = {'encoding', 'fileformat', 'filetype'},
-                lualine_y = {'progress'},
-                lualine_z = {'location'}
+                lualine_a = {"mode"},
+                lualine_b = {"branch", "diff"},
+                lualine_c = {"filename", "diagnositcs"},
+                lualine_x = {"encoding", "fileformat", "filetype"},
+                lualine_y = {"progress"},
+                lualine_z = {"location"}
             }
         },
         config = function(_, opts)
@@ -41,7 +41,13 @@ return {
                 },
             },
             messages = {
-                enabled = true
+                enabled = true,
+            },
+            routes = {
+                {
+                    view = "popup",
+                    filter = { min_height = 20 },
+                },
             },
             -- you can enable a preset for easier configuration
             presets = {
@@ -55,5 +61,12 @@ return {
         config = function(_, opts)
             require("noice").setup(opts)
         end
+    },
+    {
+        "rcarriga/nvim-notify",
+        opts = {
+            render = "compact",
+            stages = "fade",
+        },
     }
 }
