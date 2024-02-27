@@ -11,7 +11,7 @@ vimcmd_visual_symbol = '[➜](bold purple)'
 
 [git_status]
 style = 'bold purple'
-ahead = '↑'
-behind = '↓'
+ahead = '→'
+behind = '←'
 diverged = '⥯'
 
