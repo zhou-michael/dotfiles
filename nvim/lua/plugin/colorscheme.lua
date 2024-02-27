@@ -4,7 +4,15 @@ return {
         name = "catppuccin",
         lazy = false,
         priority = 1000,
-        config = function()
+        opts = {
+            flavour = "mocha",
+            transparent_background = false,
+            integrations = {
+                notify = true
+            }
+        },
+        config = function(_, opts)
+            require("catppuccin").setup(opts)
             vim.cmd([[colorscheme catppuccin]])
         end
     },
