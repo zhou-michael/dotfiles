@@ -2,17 +2,23 @@
 .DS_store
 
 # no idea what this is
-gtk-2.0/
+/gtk-2.0/
+
+# old stuff
+/nvim.bak/
+
+# pulse idk what this is
+/pulse/
 
 # fontforge not configured
-fontforge/
+/fontforge/
 
 # kitty extra config file
 .kitty.conf.bak
 
 # gh has some tokens probably lol
-gh/
+/gh/
 
-sketchybar*/
+/sketchybar*/
 
-!sketchybar/
+!/sketchybar/
