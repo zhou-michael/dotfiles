@@ -12,7 +12,8 @@ opt.signcolumn = "yes" -- display sign column
 opt.foldmethod = "expr"
 opt.foldexpr = "nvim_treesitter#foldexpr()"
 -- opt.foldcolumn = "auto:1" -- show up to one column of fold signs
-opt.foldenable = false -- don't fold when opening file
+opt.foldenable = true -- don't fold when opening file
+opt.foldlevel = 20
 
 opt.scrolloff = 1 -- always display 1 row above/below cursor
 opt.sidescrolloff = 8 -- display 8 columns left and right of cursor

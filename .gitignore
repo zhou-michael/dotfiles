@@ -1,0 +1,18 @@
+# Ignore mac system
+.DS_store
+
+# no idea what this is
+gtk-2.0/
+
+# fontforge not configured
+fontforge/
+
+# kitty extra config file
+.kitty.conf.bak
+
+# gh has some tokens probably lol
+gh/
+
+sketchybar*/
+
+!sketchybar/

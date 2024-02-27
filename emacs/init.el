@@ -4,3 +4,4 @@
 (menu-bar-mode -1)
 
 (load-theme 'deeper-blue t)
+
