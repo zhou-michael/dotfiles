@@ -157,7 +157,7 @@
 # alt - p : yabai -m window --toggle sticky --toggle topmost --toggle pip
 
 # open terminal, blazingly fast compared to iTerm/Hyper
-rcmd + shift - return : /Applications/kitty.app/Contents/MacOS/kitty --start-as=maximized --single-instance -d ~ sh -c "/opt/homebrew/bin/tmux new-session -A -s main"
+rcmd + shift - return : /Applications/kitty.app/Contents/MacOS/kitty --start-as=maximized --single-instance -d ~ fish -c "/opt/homebrew/bin/tmux new-session -A -s main"
 ralt + shift - return : /Applications/kitty.app/Contents/MacOS/kitty -d ~
 # rcmd + shift - return : /opt/homebrew/bin/alacritty
 # ralt + shift - return : /opt/homebrew/bin/alacritty -o 'window.startup_mode="Windowed"' -o 'window.decorations="None"' -o 'window.opacity=1' -o 'window.blur=false'
