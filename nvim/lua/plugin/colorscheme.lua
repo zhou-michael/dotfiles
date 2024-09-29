@@ -24,5 +24,12 @@ return {
         config = function()
             vim.cmd([[colorscheme tokyonight]])
         end
+    },
+    {
+        dir = "~/Documents/beepboop/matcha",
+        lazy = true,
+        config = function(_, opts)
+            -- vim.cmd("colorscheme matcha")
+        end
     }
 }

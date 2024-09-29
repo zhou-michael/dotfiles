@@ -5,4 +5,5 @@ return {
 --    require("plugin.ui.noice"),
     require("plugin.ui.nvim-notify"),
     require("plugin.ui.nvim-web-devicons"),
+    require("plugin.ui.colorizer"),
 }
