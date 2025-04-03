@@ -125,3 +125,12 @@ export CPPFLAGS="-I/opt/homebrew/opt/postgresql@16/include"
 export PKG_CONFIG_PATH="/opt/homebrew/opt/postgresql@16/lib/pkgconfig"
 export JUPYTER_PATH="/opt/homebrew/share/jupyter:$JUPYTER_PATH"
 
+
+# >>> juliaup initialize >>>
+
+# !! Contents within this block are managed by juliaup !!
+
+path=('/Users/michaelzhou/.juliaup/bin' $path)
+export PATH
+
+# <<< juliaup initialize <<<
