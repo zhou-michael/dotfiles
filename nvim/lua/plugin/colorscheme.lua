@@ -2,7 +2,7 @@ return {
     {
         "catppuccin/nvim",
         name = "catppuccin",
-        lazy = false,
+        lazy = true,
         priority = 1000,
         opts = {
             flavour = "mocha",
@@ -13,7 +13,6 @@ return {
         },
         config = function(_, opts)
             require("catppuccin").setup(opts)
-            vim.cmd([[colorscheme catppuccin]])
         end
     },
     {
@@ -22,14 +21,13 @@ return {
         lazy = true,
         priority = 1000,
         config = function()
-            vim.cmd([[colorscheme tokyonight]])
         end
     },
     {
-        dir = "~/Documents/beepboop/matcha",
+        dir = "~/Documents/beepboop/cha",
         lazy = true,
         config = function(_, opts)
-            -- vim.cmd("colorscheme matcha")
+            require("cha").setup(opts)
         end
     }
 }
