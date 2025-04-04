@@ -30,4 +30,6 @@ if status is-interactive
     set -x NNN_FCOLORS "$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$UNKNOWN"
 
     set -x EDITOR nvim
+
+    set -x NNN_TRASH "trash"
 end
