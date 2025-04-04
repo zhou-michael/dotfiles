@@ -59,3 +59,7 @@ opt.showmode = false -- don't show insert/normal mode
 -- Python path
 -- vim.g.python3_host_prog = "/opt/homebrew/bin/python3"
 
+-- coq
+vim.g.coq_settings = {
+    auto_start = 'shut-up'
+}
