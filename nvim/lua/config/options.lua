@@ -61,5 +61,6 @@ opt.showmode = false -- don't show insert/normal mode
 
 -- coq
 vim.g.coq_settings = {
-    auto_start = 'shut-up'
+    auto_start = false
 }
+
