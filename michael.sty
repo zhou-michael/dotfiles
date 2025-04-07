@@ -1,0 +1,240 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{michael}[2025 package michael]
+
+\newif\ifmichaelsetup\michaelsetuptrue
+\newif\ifmichaelhref\michaelhreftrue
+\newif\ifmichaelhdr\michaelhdrtrue
+\newif\ifmichaelfancy\michaelfancytrue
+\newif\ifmichaelsecthm\michaelsecthmtrue
+
+\DeclareOption{nosetup}{\michaelsetupfalse}
+
+\ProcessOptions\relax
+
+% set no indents and line space between paragraphs
+\setlength{\parindent}{0.0cm}
+\setlength{\parskip}{0.25cm}
+
+% shortcuts (from evan.sty https://github.com/vEnhance/dotfiles/blob/main/texmf/tex/latex/evan/evan.sty)
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceiling}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\ol}{\overline}
+\newcommand{\ul}{\underline}
+\newcommand{\wt}{\widetilde}
+\newcommand{\wh}{\widehat}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\dg}{^\circ}
+
+% required packages
+\RequirePackage{amssymb}
+\RequirePackage{amsmath}
+
+% general
+\DeclareMathOperator{\lcm}{lcm}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert} % evan.sty
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert} % evan.sty
+
+% linear algebra
+\DeclareMathOperator{\img}{im}
+\DeclareMathOperator{\sign}{sign}
+
+% analysis
+\DeclareMathOperator{\vol}{vol}
+
+% blackboard bold
+\newcommand{\C}{\mathbb C}
+\newcommand{\F}{\mathbb F}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Z}{\mathbb Z}
+
+\ifmichaelsetup
+    % Title author date
+    \title{}
+    \author{Michael Zhou}
+    \date{\today}
+
+    \providecommand{\thetitle}{\@title}
+    \providecommand{\theauthor}{\@author}
+    \providecommand{\thedate}{\@date}
+
+    % hyperref
+    \ifmichaelhref
+        \RequirePackage[colorlinks=true,pdfusetitle]{hyperref}
+    \fi
+
+    % fancy headers, mostly adapted from evan.sty
+    \ifmichaelhdr
+        \@ifundefined{KOMAClassName}
+        {
+            \RequirePackage{fancyhdr}
+
+            \pagestyle{fancy}
+
+            \lhead{\theauthor}
+            \chead{}
+            \rhead{}
+            \lfoot{}
+            \cfoot{\thepage}
+            \rfoot{}
+        }
+        {
+            \RequirePackage[headsepline]{scrlayer-scrpage}
+            \pagestyle{scrheadings}
+
+            \renewcommand{\headfont}{}
+            \addtolength{\textheight}{3cm}
+            \setlength{\footskip}{1.5cm}
+            \setlength{\headsep}{0.35cm}
+            \ihead{\footnotesize\textbf{\theauthor} --- \thedate}
+            \ohead{\footnotesize\textbf{\thetitle}}
+            \cfoot{\pagemark}
+        }
+    \fi
+
+    % theorems etc.
+    \ifmichaelfancy
+        \RequirePackage{amsthm}
+        \RequirePackage{thmtools}
+        \RequirePackage[framemethod=tikz]{mdframed}
+
+        \usetikzlibrary{shadows}
+        \RequirePackage[dvipsnames]{xcolor}
+        \RequirePackage{xpatch}
+        \xpatchcmd{\endmdframed}
+        {\aftergroup\endmdf@trivlist\color@endgroup}
+        {\endmdf@trivlist\color@endgroup\@doendpe}
+        {}{}
+
+        % styles (adapted from evan.sty)
+        \mdfdefinestyle{mdbluebox}{%
+            roundcorner=0pt,
+            linewidth=1.5pt,
+            skipabove=12pt,
+            innerbottommargin=9pt,
+            skipbelow=2pt,
+            leftline=true,
+            rightline=false,
+            topline=false,
+            bottomline=false,
+            linecolor=MidnightBlue!70!black,
+            nobreak=false,
+            backgroundcolor=MidnightBlue!3,
+        }
+
+        \declaretheoremstyle[
+            headfont=\sffamily\bfseries\color{MidnightBlue!70!black},
+            mdframed={style=mdbluebox},
+            headpunct={\\[3pt]},
+            postheadspace={0pt}
+        ]{thmbluebox}
+
+        \mdfdefinestyle{mdredbox}{%
+            roundcorner=0pt,
+            linewidth=1.5pt,
+            skipabove=12pt,
+            innerbottommargin=9pt,
+            skipbelow=2pt,
+            leftline=true,
+            rightline=false,
+            topline=false,
+            bottomline=false,
+            linecolor=Mahogany!50!black,
+            nobreak=false,
+            backgroundcolor=Mahogany!3,
+        }
+
+        \declaretheoremstyle[
+            headfont=\sffamily\bfseries\color{Mahogany!50!black},
+            mdframed={style=mdredbox},
+            headpunct={\\[3pt]},
+            postheadspace={0pt}
+        ]{thmredbox}
+
+        \mdfdefinestyle{mdgreenbox}{%
+            roundcorner=0pt,
+            linewidth=1.5pt,
+            skipabove=12pt,
+            skipbelow=2pt,
+            innerbottommargin=7pt,
+            leftline=true,
+            rightline=false,
+            topline=false,
+            bottomline=false,
+            linecolor=ForestGreen!30!black,
+            nobreak=false,
+            backgroundcolor=ForestGreen!5,
+        }
+
+        \declaretheoremstyle[
+            headfont=\sffamily\bfseries\color{ForestGreen!30!black},
+            bodyfont=\normalfont\small,
+            mdframed={style=mdgreenbox},
+            headpunct={\\[2pt]},
+            spaceabove=2pt,
+            spacebelow=0pt,
+            postheadspace={0pt}
+        ]{thmgreenbox}
+
+        \ifmichaelsecthm
+            \declaretheorem[style=thmbluebox,name=Theorem,numberwithin=section]{theorem}
+        \else
+            \declaretheorem[style=thmbluebox,name=Theorem]{theorem}
+        \fi
+        \declaretheorem[style=thmbluebox,name=Lemma,sibling=theorem]{lemma}
+        \declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{proposition}
+        \declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+        \declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+        \declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+        \declaretheorem[style=thmbluebox,name=Proposition,numbered=no]{proposition*}
+        \declaretheorem[style=thmbluebox,name=Corollary,numbered=no]{corollary*}
+
+        \declaretheorem[style=thmredbox,name=Example,sibling=theorem]{example}
+        \declaretheorem[style=thmredbox,name=Example,numbered=no]{example*}
+
+        \declaretheorem[style=thmgreenbox,name=Remark,sibling=theorem]{remark}
+        \declaretheorem[style=thmgreenbox,name=Remark,numbered=no]{remark*}
+    \else
+        \ifmichaelsecthm
+            \declaretheorem[name=Theorem,numberwithin=section]{theorem}
+        \else
+            \declaretheorem[name=Theorem]{theorem}
+        \fi
+        \declaretheorem[name=Lemma,sibling=theorem]{lemma}
+        \declaretheorem[name=Proposition,sibling=theorem]{proposition}
+        \declaretheorem[name=Corollary,sibling=theorem]{corollary}
+        \declaretheorem[name=Assumption,sibling=theorem]{assume}
+        \declaretheorem[name=Theorem,numbered=no]{theorem*}
+        \declaretheorem[name=Lemma,numbered=no]{lemma*}
+        \declaretheorem[name=Proposition,numbered=no]{proposition*}
+        \declaretheorem[name=Corollary,numbered=no]{corollary*}
+        \declaretheorem[name=Assumption,numbered=no]{assume*}
+
+        \declaretheorem[name=Example,sibling=theorem]{example}
+        \declaretheorem[name=Example,numbered=no]{example*}
+
+        \declaretheorem[name=Remark,sibling=theorem]{remark}
+        \declaretheorem[name=Remark,numbered=no]{remark*}
+    \fi
+
+    \ifmichaelfancy
+      \declaretheoremstyle[
+        headfont=\normalfont\bfseries,
+        spaceabove=8pt,
+        spacebelow=8pt,
+        bodyfont=\normalfont
+      ]{basehead}
+    \else
+      \declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+    \fi
+
+    \declaretheorem[style=basehead,name=Definition,sibling=theorem]{definition}
+    \declaretheorem[style=basehead,name=Definition,numbered=no]{definition*}
+    \declaretheorem[style=basehead,name=Exercise,sibling=theorem]{exercise}
+    \declaretheorem[style=basehead,name=Exercise,numbered=no]{exercise*}
+    \declaretheorem[style=basehead,name=Problem,sibling=theorem]{problem}
+    \declaretheorem[style=basehead,name=Problem,numbered=no]{problem*}
+
+\fi
+
