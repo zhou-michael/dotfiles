@@ -19,7 +19,7 @@ return {
             },
         },
         messages = {
-            enabled = true,
+            enabled = false,
         },
         routes = {
             {
@@ -35,6 +35,9 @@ return {
             inc_rename = false, -- enables an input dialog for inc-rename.nvim
             lsp_doc_border = false, -- add a border to hover docs and signature help
         },
+        notify = {
+            enabled = false,
+        }
     },
     config = function(_, opts)
         require("noice").setup(opts)

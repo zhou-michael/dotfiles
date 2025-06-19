@@ -217,7 +217,7 @@ endsnippet
 context "math()"
 snippet '([^\\])sqrt' "sqrt" rA
 `!p
-match.group(1)`\sqrt{$0}
+snip.rv = match.group(1)`\sqrt{$1}$0
 endsnippet
 
 context "math()"
@@ -226,7 +226,7 @@ snippet rt "root" w
 endsnippet
 
 context "math()"
-snippet '([A-Za-z0-9]|\\[A-Za-z]*)hat' "hat" rA
+snippet '([A-Za-z0-9]|\\[A-Za-z]+)hat' "hat" rA
 \hat{`!p
 snip.rv = match.group(1)`}$0
 endsnippet
@@ -239,31 +239,31 @@ endsnippet
 
 context "math()"
 priority 1
-snippet '([A-Za-z0-9]|\\[A-Za-z]*)ddot' "ddot" rA
+snippet '([A-Za-z0-9]|\\[A-Za-z]+)ddot' "ddot" rA
 \ddot{`!p
 snip.rv = match.group(1)`}$0
 endsnippet
 
 context "math()"
-snippet '([A-Za-z0-9]|\\[A-Za-z]*)bar' "bar" rA
+snippet '([A-Za-z0-9]|\\[A-Za-z]+)bar' "bar" rA
 \bar{`!p
 snip.rv = match.group(1)`}$0
 endsnippet
 
 context "math()"
-snippet '([A-Za-z0-9]|[A-Za-z]*)vec' "vec" rA
+snippet '([A-Za-z0-9]|\\[A-Za-z]+)vec' "vec" rA
 \vec{`!p
 snip.rv = match.group(1)`}$0
 endsnippet
 
 context "math()"
-snippet '([A-Za-z0-9]|\\[A-Za-z]*)und' "und" rA
+snippet '([A-Za-z0-9]|\\[A-Za-z]+)und' "und" rA
 \underline{`!p
 snip.rv = match.group(1)`}$0
 endsnippet
 
 context "math()"
-snippet '([A-Za-z0-9]|\\[A-Za-z]*)tild' "tild" rA
+snippet '([A-Za-z0-9]|\\[A-Za-z]+)tild' "tild" rA
 \tilde{`!p
 snip.rv = match.group(1)`}$0
 endsnippet
@@ -356,7 +356,22 @@ endsnippet
 
 context "math()"
 snippet 'dd([A-Za-z])' "derivative 3" wr
-\frac{\mathrm d $1}{\mathrm d `!p snip.rv = match.group(2)`} $0
+\frac{\mathrm d $1}{\mathrm d `!p snip.rv = match.group(1)`} $0
+endsnippet
+
+context "math()"
+snippet 2dd "second derivative" w
+\frac{\mathrm d^2 $1}{\mathrm d $2^2} $0
+endsnippet
+
+context "math()"
+snippet '2dd([A-Za-z])' "second derivative" wr
+\frac{\mathrm d^2 $1}{\mathrm d `!p snip.rv = match.group(1)`^2} $0
+endsnippet
+
+context "math()"
+snippet '2d([A-Za-z])d([A-Za-z])' "second derivative" wr
+\frac{\mathrm d^2 `!p snip.rv = match.group(1)`}{\mathrm d `!p snip.rv = match.group(2)`^2} $0
 endsnippet
 
 context "math()"

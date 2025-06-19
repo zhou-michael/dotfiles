@@ -56,4 +56,11 @@ opt.showmode = false -- don't show insert/normal mode
 
 -- grep and vimgrep, wildmode ?
 
+-- Python path
+-- vim.g.python3_host_prog = "/opt/homebrew/bin/python3"
+
+-- coq
+vim.g.coq_settings = {
+    auto_start = false
+}
 
