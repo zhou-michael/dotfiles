@@ -9,9 +9,13 @@ return {
     opts = {},
     config = function(_, opts)
         require("mason-lspconfig").setup(opts)
+
+        local capabilities = require('cmp_nvim_lsp').default_capabilities()
         require("mason-lspconfig").setup_handlers({
             function(server_name) -- default handler
-                require("lspconfig")[server_name].setup({})
+                require("lspconfig")[server_name].setup({
+                    capabilities = capabilities
+                })
             end,
 
             ["lua_ls"] = function()
@@ -24,7 +28,8 @@ return {
                                 }
                             }
                         }
-                    }
+                    },
+                    capabilities = capabilities
                 })
             end,
 
@@ -32,13 +37,14 @@ return {
                 require("lspconfig").clangd.setup({
                     settings = {
 
-                    }
+                    },
+                    capabilities = capabilities
                 })
             end,
 
             ["pyright"] = function()
                 require("lspconfig").pyright.setup({
-                    
+                    capabilites = capabilities
                 })
             end,
         })

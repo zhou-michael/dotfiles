@@ -24,7 +24,16 @@ return {
             tabs = true,       -- separate nnn instance per tab
             fullscreen = true, -- whether to fullscreen picker window when current tab is empty
         },
+        auto_open = {
+            setup = nil,       -- or "explorer" / "picker", auto open on setup function
+            tabpage = nil,     -- or "explorer" / "picker", auto open when opening new tabpage
+            empty = false,     -- only auto open on empty buffer
+            ft_ignore = {      -- dont auto open for these filetypes
+                "gitcommit",
+            }
+        },
         auto_close = true,
+        detach = true
     },
     config = function(_, opts)
         local builtin = require("nnn").builtin

@@ -23,11 +23,11 @@ return {
         config = function()
         end
     },
-    {
-        dir = "~/Documents/beepboop/cha",
-        lazy = true,
-        config = function(_, opts)
-            require("cha").setup(opts)
-        end
-    }
+--    {
+--        dir = "~/Documents/beepboop/cha",
+--        lazy = true,
+--        config = function(_, opts)
+--            require("cha").setup(opts)
+--        end
+--    }
 }

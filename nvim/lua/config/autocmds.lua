@@ -1,10 +1,10 @@
 -- TeX customizations
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = {"tex"},
-    callback = function()
+    pattern = {"tex"}, callback = function()
         vim.opt_local.wrap = true
         vim.opt_local.linebreak = true
         vim.opt_local.textwidth = 0
+        require'cmp'.setup.buffer { enabled = false }
 
         -- set shorter name for keymap function
 
@@ -43,9 +43,11 @@ vim.api.nvim_create_autocmd("VimEnter", {
             vim.cmd('NnnExplorer')  -- Open nnn in a terminal inside Neovim
         end
 
-        -- don't enable COQ on tex files
-        if vim.bo.filetype ~= "tex" then
-            vim.cmd('COQnow --shut-up')
-        end
+        --if vim.bo.filetype == "tex" then
+            --require'cmp'.setup.buffer { enabled = false }
+            -- don't enable COQ on tex files
+            --vim.cmd('COQnow --shut-up')
+        --end
     end
 })
+

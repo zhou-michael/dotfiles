@@ -4,3 +4,4 @@ vim.keymap.set('n', '<Leader>m', '<cmd>NnnPicker<CR>')
 vim.keymap.set('n', '<Leader><S-m>', '<cmd>NnnPicker %:p:h<CR>')
 vim.keymap.set('n', '<Leader>t', '<cmd>Telescope<CR>')
 vim.keymap.set('n', '<Leader>b', '<cmd>bnext<CR>')
+
