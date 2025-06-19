@@ -96,15 +96,30 @@ def create_array(rows, cols, sep, start, end):
 
 endglobal
 
-snippet preamble "gives the default preamble" b
-\documentclass[11pt]{scrartcl}
-\usepackage[sexy]{evan}
-\setlength{\parindent}{${1:0.0cm}}
-\setlength{\parskip}{${2:0.25cm}}
+# snippet preamble "gives the default preamble" b
+# \documentclass[11pt]{scrartcl}
+# \usepackage[sexy]{evan}
+# \setlength{\parindent}{${1:0.0cm}}
+# \setlength{\parskip}{${2:0.25cm}}
+# 
+# \title{$3}
+# \author{${4:Michael Zhou}}
+# \date{${5:\today}}
+# 
+# \begin{document}
+# \maketitle
+# 
+# $0
+# 
+# \end{document}
+# endsnippet
 
-\title{$3}
-\author{${4:Michael Zhou}}
-\date{${5:\today}}
+snippet preamble "gives the default preamble" b
+%! TeX program = lualatex
+\documentclass[11pt]{scrartcl}
+\usepackage{michael}
+
+\title{$1}
 
 \begin{document}
 \maketitle
