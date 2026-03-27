@@ -15,7 +15,7 @@ opt.foldexpr = "nvim_treesitter#foldexpr()"
 opt.foldenable = true -- don't fold when opening file
 opt.foldlevel = 20
 
-opt.scrolloff = 1 -- always display 1 row above/below cursor
+opt.scrolloff = 8 -- always display 8 rows above/below cursor
 opt.sidescrolloff = 8 -- display 8 columns left and right of cursor
 
 opt.conceallevel = 2 -- hide concealed characters unless replacement character exists

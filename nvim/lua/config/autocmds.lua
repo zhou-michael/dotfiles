@@ -4,7 +4,7 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.opt_local.wrap = true
         vim.opt_local.linebreak = true
         vim.opt_local.textwidth = 0
-        require'cmp'.setup.buffer { enabled = false }
+        -- blink.cmp is disabled for tex via the global enabled() function in blink-cmp.lua
 
         -- set shorter name for keymap function
 

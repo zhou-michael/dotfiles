@@ -6,4 +6,5 @@ return {
     require("plugin.ui.nvim-notify"),
     require("plugin.ui.nvim-web-devicons"),
     require("plugin.ui.colorizer"),
+    require("plugin.ui.which-key"),
 }

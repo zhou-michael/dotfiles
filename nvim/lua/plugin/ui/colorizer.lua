@@ -1,9 +1,16 @@
 return {
-    "norcalli/nvim-colorizer.lua",
-    name = "colorizer",
-    lazy = false,
+    "NvChad/nvim-colorizer.lua",
+    event = "BufReadPre",
     opts = {
-        'lua',
-    }
+        filetypes = { "*" },
+        user_default_options = {
+            RGB      = true,
+            RRGGBB   = true,
+            names    = false, -- don't colorize color names (e.g. "red") to avoid false positives
+            RRGGBBAA = true,
+            css      = true,
+            css_fn   = true,
+            mode     = "background",
+        },
+    },
 }
-

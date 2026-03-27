@@ -1,9 +1,2 @@
-return {
-    "SirVer/ultisnips",
-    lazy = false,
-    config = function(_, _)
-        vim.g.UltiSnipsExpandTrigger = "<tab>"
-        vim.g.UltiSnipsJumpForwardTrigger = "<c-c>"
-        vim.g.UltiSnipsJumpBackwardTrigger = "<c-x>"
-    end
-}
+-- Replaced by LuaSnip. File kept to avoid lazy.nvim scan errors.
+return {}

@@ -34,8 +34,14 @@ return {
                 vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
                 vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
                 vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+                -- prefer conform.nvim; fall back to LSP if no formatter configured
                 vim.keymap.set('n', '<space>f', function()
-                    vim.lsp.buf.format { async = true }
+                    local ok, conform = pcall(require, "conform")
+                    if ok then
+                        conform.format({ async = true, lsp_fallback = true })
+                    else
+                        vim.lsp.buf.format({ async = true })
+                    end
                 end, opts)
             end,
         })
