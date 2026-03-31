@@ -2,12 +2,18 @@
 \ProvidesPackage{michael}[2025 package michael]
 
 \newif\ifmichaelsetup\michaelsetuptrue
-\newif\ifmichaelhref\michaelhreftrue
 \newif\ifmichaelhdr\michaelhdrtrue
 \newif\ifmichaelfancy\michaelfancytrue
 \newif\ifmichaelsecthm\michaelsecthmtrue
+\newif\ifmichaelalg\michaelalgfalse % algebra
+\newif\ifmichaelgraphics\michaelgraphicstrue
 
 \DeclareOption{nosetup}{\michaelsetupfalse}
+\DeclareOption{nosec}{\michaelsecthmfalse}
+\DeclareOption{nohdr}{\michaelhdrfalse}
+\DeclareOption{nofancy}{\michaelfancyfalse}
+\DeclareOption{nographics}{\michaelgraphicsfalse}
+\DeclareOption{alg}{\michaelalgtrue}
 
 \ProcessOptions\relax
 
@@ -18,12 +24,16 @@
 % shortcuts (from evan.sty https://github.com/vEnhance/dotfiles/blob/main/texmf/tex/latex/evan/evan.sty)
 \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
 \newcommand{\ceiling}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\set}[1]{\left\{ #1 \right\}}
 \newcommand{\ol}{\overline}
 \newcommand{\ul}{\underline}
 \newcommand{\wt}{\widetilde}
 \newcommand{\wh}{\widehat}
 \newcommand{\eps}{\varepsilon}
 \newcommand{\dg}{^\circ}
+\newcommand{\incl}{\hookrightarrow}
+\newcommand{\lang}{\langle}
+\newcommand{\rang}{\rangle}
 
 % required packages
 \RequirePackage{amssymb}
@@ -31,12 +41,23 @@
 
 % general
 \DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\id}{id}
 \newcommand{\abs}[1]{\left\lvert #1 \right\rvert} % evan.sty
 \newcommand{\norm}[1]{\left\lVert #1 \right\rVert} % evan.sty
+\newcommand\restr[2]{{% we make the whole thing an ordinary symbol
+        \left.\kern-\nulldelimiterspace % automatically resize the bar with \right
+            #1 % the function
+            %\vphantom{\big|} % pretend it's a little taller at normal size
+            \right|_{#2} % this is the delimiter
+    }}
+\newcommand{\tp}{^\intercal}
+\newcommand{\adj}{^\dagger}
 
 % linear algebra
 \DeclareMathOperator{\img}{im}
 \DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\tr}{tr}
 
 % analysis
 \DeclareMathOperator{\vol}{vol}
@@ -49,6 +70,15 @@
 \newcommand{\R}{\mathbb R}
 \newcommand{\Z}{\mathbb Z}
 
+% probability
+\DeclareMathOperator{\cov}{cov}
+\DeclareMathOperator{\var}{var}
+\newcommand{\Prob}{\mathbb P}
+\newcommand{\E}{\mathbb E}
+
+% physics
+% \usepackage{braket}
+
 \ifmichaelsetup
     % Title author date
     \title{}
@@ -60,8 +90,11 @@
     \providecommand{\thedate}{\@date}
 
     % hyperref
-    \ifmichaelhref
-        \RequirePackage[colorlinks=true,pdfusetitle]{hyperref}
+    \RequirePackage[colorlinks=true,pdfusetitle]{hyperref}
+
+    \ifluatex % luatex use fonts for stuff like mathbb1
+        \usepackage{unicode-math}
+        \setmathfont{NewCMMath-Book}
     \fi
 
     % fancy headers, mostly adapted from evan.sty
@@ -219,14 +252,14 @@
     \fi
 
     \ifmichaelfancy
-      \declaretheoremstyle[
+        \declaretheoremstyle[
         headfont=\normalfont\bfseries,
         spaceabove=8pt,
         spacebelow=8pt,
         bodyfont=\normalfont
-      ]{basehead}
+        ]{basehead}
     \else
-      \declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+        \declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
     \fi
 
     \declaretheorem[style=basehead,name=Definition,sibling=theorem]{definition}
@@ -236,5 +269,14 @@
     \declaretheorem[style=basehead,name=Problem,sibling=theorem]{problem}
     \declaretheorem[style=basehead,name=Problem,numbered=no]{problem*}
 
+    \ifmichaelgraphics
+        \RequirePackage{graphicx}
+        \RequirePackage{float}
+        \graphicspath{ {./images/}{./build/}{./figures} }
+    \fi
+
+    \ifmichaelalg
+        \RequirePackage{tikz-cd}
+    \fi
 \fi
 

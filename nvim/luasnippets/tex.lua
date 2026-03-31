@@ -398,7 +398,7 @@ local auto = {
 
 -- mark every auto snippet as autosnippet
 for _, snip in ipairs(auto) do
-    snip.snippetType = "autosnippet"
+    snip.snippetType = "autosnippets"
 end
 
 return regular, auto

@@ -134,3 +134,5 @@ path=('/Users/michaelzhou/.juliaup/bin' $path)
 export PATH
 
 # <<< juliaup initialize <<<
+
+. "$HOME/.local/bin/env"
