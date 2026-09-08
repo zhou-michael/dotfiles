@@ -10,29 +10,29 @@ All configurations are organized into a modular monorepo and symlinked to their 
 
 ```text
 dotfiles/
-├── setup.sh                 # Unified installer with OS auto-detection & safe backups
+├── setup.sh                 # Unified installer with OS auto-detection & package installer
 ├── README.md                # Documentation & architecture overview
-├── CLAUDE.md                # Agent instructions and configuration reference
+├── AGENT.md                 # Universal AI agent instructions (source of truth)
+├── CLAUDE.md                # -> AGENT.md (symlink for Claude Code)
+├── GEMINI.md                # -> AGENT.md (symlink for Gemini / Antigravity)
 │
 ├── common/                  # Cross-platform configurations (all environments)
-│   ├── zshrc                # Modular base zshrc (oh-my-zsh, starship, vi mode, local hook)
+│   ├── zshrc                # Unified cross-platform zshrc ($OSTYPE branching for macOS/Linux)
+│   ├── fish/                # Cross-platform Fish config with safe prompts and dynamic PATH
 │   ├── starship.toml        # Starship cross-shell prompt
 │   ├── nvim/                # Modern Neovim (Lazy.nvim, Blink.cmp, Conform, LuaSnip)
 │   ├── tmux/                # Tmux configuration (Catppuccin theme, vim navigation)
 │   ├── git/                 # Git user configuration (nvim editor default)
 │   ├── kitty/               # Kitty terminal emulator configuration
 │   ├── alacritty/           # Alacritty terminal emulator configuration
-│   ├── fish/                # Fish shell functions, completions, and config
 │   ├── neofetch/            # Neofetch system info display
 │   ├── emacs/               # Emacs configuration
 │   └── michael.sty          # LaTeX macros package for academic math & probability
 │
 ├── macos/                   # macOS workstation specific
-│   ├── zshrc.local          # Homebrew paths, Postgres 16, Juliaup environment
 │   └── skhd/                # Modal hotkey daemon configuration
 │
 ├── popos/                   # Pop!_OS / Linux workstation specific
-│   ├── zshrc.local          # Linux PATH and local environment hooks
 │   ├── zathura/             # Zathura document viewer configuration
 │   ├── bin/
 │   │   └── run-user-cron    # Modular user-level cron task runner with notifications
@@ -47,8 +47,7 @@ dotfiles/
 │           └── 90-system-weekly-report.sh # System telemetry & weekly report publisher
 │
 ├── ubuntu/                  # Ubuntu / WSL2 specific
-│   ├── wsl.conf             # WSL2 configuration (systemd=true, interop, automount)
-│   └── zshrc.local          # WSL environment & Windows interoperability helpers
+│   └── wsl.conf             # WSL2 configuration (systemd=true, interop, automount)
 │
 └── archive/                 # Archived configurations
     ├── sketchybar/          # macOS status bar orchestration and shell plugins
@@ -69,8 +68,11 @@ cd ~/Documents/dotfiles
 Run the automated installer:
 
 ```bash
-# Auto-detects macOS, Pop!_OS, or Ubuntu / WSL
+# Auto-detects macOS, Pop!_OS, or Ubuntu / WSL and deploys symlinks
 ./setup.sh
+
+# Automatically install CLI binaries (modern Neovim, Starship, tmux, fish, ripgrep, uv)
+./setup.sh --install-packages
 ```
 
 ### Explicit Environments
@@ -78,36 +80,37 @@ Run the automated installer:
 You can explicitly target a specific profile regardless of the host OS:
 
 ```bash
-./setup.sh macos     # Deploy macOS profile (skhd, homebrew & environment paths)
-./setup.sh popos     # Deploy Pop!_OS profile (systemd timers, user cron, etc.)
-./setup.sh ubuntu    # Deploy Ubuntu / WSL profile (WSL interop helpers, etc.)
+./setup.sh macos     # Deploy macOS profile
+./setup.sh popos     # Deploy Pop!_OS profile (zathura, systemd timers, user cron)
+./setup.sh ubuntu    # Deploy Ubuntu / WSL profile
 ```
 
 ### Installer Options
 
-- `-d`, `--dry-run`: Preview all symlinks and backups without modifying any files.
+- `-p`, `--install-packages`: Automatically installs CLI binaries:
+  - **macOS**: Installs `neovim`, `tmux`, `starship`, `fish`, `ripgrep`, `fd`, `fzf`, `uv` via Homebrew.
+  - **Linux (Pop!_OS / Ubuntu)**: Installs official release Neovim (v0.10+ without root into `~/.local/`), Starship, uv, and core apt packages (`tmux`, `fish`, `zsh`, `ripgrep`, `fzf`, `zathura`).
+- `-d`, `--dry-run`: Preview all symlinks, backups, and commands without modifying anything.
 - `--no-backup`: Overwrite existing files directly without creating a backup archive.
 - `-h`, `--help`: Display the usage manual.
-
-```bash
-# Dry run example
-./setup.sh --dry-run
-```
 
 > **Safe Deployments:** If a destination file or directory already exists and is not already linked to this repository, `setup.sh` safely moves it to a timestamped backup directory at `~/.dotfiles_backup/<timestamp>/` before creating the symlink.
 
 ---
 
-## ⚙️ Modular Shell Architecture
+## ⚙️ Unified Shell Architecture (Zsh & Fish)
 
-Both macOS and Linux share `common/zshrc`, which handles:
-- Oh-My-Zsh bootstrapping & plugins (`git`, `zsh-autosuggestions`, `zsh-syntax-highlighting`)
-- Starship prompt initialization
-- Vi mode (`set -o vi`, `bindkey '^f' autosuggest-accept`)
-- Portable aliases (`rm="rm -i"`) and functions (`mkcd`)
-- Sourcing `$HOME/.zshrc.local` if it exists
+### Zsh (`common/zshrc` &rarr; `~/.zshrc`)
+- **Shared Base**: Oh-My-Zsh bootstrapping, plugins (`git`, `zsh-autosuggestions`, `zsh-syntax-highlighting`), Starship prompt, vi mode, and portable aliases (`mkcd`, `rm="rm -i"`).
+- **Dynamic `$OSTYPE` Branching**:
+  - `darwin*`: Automatically adds `/opt/homebrew`, Postgres 16 variables, Jupyter path, and Juliaup.
+  - `linux*`: Automatically configures WSL2 clipboard (`clip.exe`) and explorer shortcuts when running under WSL.
+- **Local Hook**: Optionally sources `~/.zshrc.local` if present for private, machine-specific keys or tokens.
 
-Machine-specific variables (such as `/opt/homebrew` on macOS or WSL helpers on Ubuntu) live exclusively in each environment's `zshrc.local` and are symlinked to `~/.zshrc.local`.
+### Fish (`common/fish` &rarr; `~/.config/fish`)
+- Fully cross-platform interactive shell configuration.
+- Uses `fish_add_path` to dynamically discover `/opt/homebrew/bin`, `~/.local/bin`, and Juliaup.
+- Defensively checks tool existence before sourcing hooks (`starship init fish`, `direnv hook fish`).
 
 ---
 

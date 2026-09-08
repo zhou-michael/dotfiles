@@ -1,15 +1,30 @@
+# ==============================================================================
+# Michael Zhou's Fish Configuration (Cross-Platform)
+# ==============================================================================
+
+# PATH Configuration (cross-platform)
+test -d /opt/homebrew/bin && fish_add_path -p /opt/homebrew/bin
+test -d /opt/homebrew/sbin && fish_add_path -p /opt/homebrew/sbin
+test -d $HOME/.local/bin && fish_add_path -p $HOME/.local/bin
+test -d $HOME/.juliaup/bin && fish_add_path -p $HOME/.juliaup/bin
+test -d $HOME/.elan/bin && fish_add_path -p $HOME/.elan/bin
+
 if status is-interactive
-    # general settings
+    # Vi keybindings & autosuggestion navigation
     fish_vi_key_bindings
     bind -M insert alt-n accept-autosuggestion
     bind -M insert ctrl-n nextd-or-forward-word
 
-    # init starship
-    starship init fish | source
+    # Prompt (Starship)
+    if type -q starship
+        starship init fish | source
+    end
 
-    # NNN config
+    # Environment
+    set -gx EDITOR nvim
+    set -gx NNN_TRASH "trash"
 
-    # This second option relies on your terminal using the catppuccin theme and we'll use true catppuccin colors:
+    # Context colors (Catppuccin compatible)
     set BLK "03"
     set CHR "03"
     set DIR "04"
@@ -22,20 +37,22 @@ if status is-interactive
     set FIFO "06"
     set SOCK "03"
     set UNKNOWN "01"
+    set -gx NNN_COLORS "#04020301;4231"
+    set -gx NNN_FCOLORS "$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$UNKNOWN"
 
-    # Export Context Colors
-    set -x NNN_COLORS "#04020301;4231"
+    # Direnv hook
+    if type -q direnv
+        direnv hook fish | source
+    end
 
-    # Finally Export the set file colors ( Both options require this)
-    set -x NNN_FCOLORS "$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$UNKNOWN"
-
-    set -x EDITOR nvim
-
-    set -x NNN_TRASH "trash"
-
-    direnv hook fish | source
+    # WSL Interop
+    if test -f /proc/version; and grep -qi microsoft /proc/version
+        type -q clip.exe && alias pbcopy="clip.exe"
+        type -q explorer.exe && alias open="explorer.exe"
+    end
 end
 
-# Added by OrbStack: command-line tools and integration
-# This won't be added again if you remove it.
-source ~/.orbstack/shell/init2.fish 2>/dev/null || :
+# OrbStack integration (macOS)
+if test -f ~/.orbstack/shell/init2.fish
+    source ~/.orbstack/shell/init2.fish 2>/dev/null || true
+end

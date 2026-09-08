@@ -1,8 +1,0 @@
-# Pop!_OS / Linux Specific Zsh Configuration
-
-# Local environment & bins
-[[ -f "$HOME/.local/bin/env" ]] && . "$HOME/.local/bin/env"
-
-if [[ -d "$HOME/.local/bin" ]]; then
-    export PATH="$HOME/.local/bin:$PATH"
-fi

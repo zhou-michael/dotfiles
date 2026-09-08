@@ -1,4 +1,7 @@
-# Common Zsh Configuration (Cross-Platform)
+# ==============================================================================
+# Michael Zhou's Zsh Configuration (Cross-Platform)
+# Unified configuration for macOS, Pop!_OS (Linux), and Ubuntu / WSL
+# ==============================================================================
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -37,15 +40,59 @@ set -o vi
 # Autosuggestion keybindings (Ctrl-F to accept)
 bindkey '^f' autosuggest-accept 2>/dev/null || true
 
-# Load environment helpers if present
+# Shared Environment & Bins
 [[ -f "$HOME/.local/bin/env" ]] && . "$HOME/.local/bin/env"
-
-# Ensure local bin is on PATH
 if [[ -d "$HOME/.local/bin" ]]; then
     export PATH="$HOME/.local/bin:$PATH"
 fi
 
-# Source machine/OS-specific overrides if present
+# ==============================================================================
+# OS-Specific Environment ($OSTYPE)
+# ==============================================================================
+
+if [[ "$OSTYPE" == darwin* ]]; then
+    # Homebrew environment
+    if [[ -f /opt/homebrew/bin/brew ]]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    fi
+
+    # macOS PATH adjustments
+    path=(
+        /opt/homebrew/bin
+        /opt/homebrew/sbin
+        $HOME/.local/bin
+        $path
+    )
+    export PATH
+
+    # PostgreSQL 16 (Homebrew)
+    if [[ -d "/opt/homebrew/opt/postgresql@16" ]]; then
+        export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
+        export LDFLAGS="-L/opt/homebrew/opt/postgresql@16/lib ${LDFLAGS:-}"
+        export CPPFLAGS="-I/opt/homebrew/opt/postgresql@16/include ${CPPFLAGS:-}"
+        export PKG_CONFIG_PATH="/opt/homebrew/opt/postgresql@16/lib/pkgconfig:${PKG_CONFIG_PATH:-}"
+    fi
+
+    # Jupyter
+    if [[ -d "/opt/homebrew/share/jupyter" ]]; then
+        export JUPYTER_PATH="/opt/homebrew/share/jupyter:${JUPYTER_PATH:-}"
+    fi
+
+    # Juliaup
+    if [[ -d "$HOME/.juliaup/bin" ]]; then
+        path=("$HOME/.juliaup/bin" $path)
+        export PATH
+    fi
+
+elif [[ "$OSTYPE" == linux* ]]; then
+    # WSL2 Interoperability
+    if grep -qi microsoft /proc/version 2>/dev/null; then
+        command -v clip.exe >/dev/null 2>&1 && alias pbcopy="clip.exe"
+        command -v explorer.exe >/dev/null 2>&1 && alias open="explorer.exe"
+    fi
+fi
+
+# Optional machine-local overrides (for uncommitted private tokens/keys)
 if [[ -f "$HOME/.zshrc.local" ]]; then
     source "$HOME/.zshrc.local"
 fi
