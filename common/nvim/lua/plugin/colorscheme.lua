@@ -22,12 +22,5 @@ return {
         priority = 1000,
         config = function()
         end
-    },
-    {
-        dir = "~/Documents/beepboop/cha",
-        lazy = true,
-        config = function(_, opts)
-            require("cha").setup(opts)
-        end
     }
 }

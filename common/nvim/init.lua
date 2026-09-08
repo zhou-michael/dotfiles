@@ -29,4 +29,3 @@ local lazy_opts = {
 require("lazy").setup("plugin", lazy_opts)
 
 vim.cmd [[colorscheme catppuccin-mocha]]
---vim.cmd [[colorscheme cha]]
