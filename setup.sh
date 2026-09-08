@@ -217,6 +217,8 @@ install_packages() {
             wget
             git
             build-essential
+            wl-clipboard
+            xclip
         )
         if [ "$TARGET_ENV" = "popos" ]; then
             APT_PACKAGES+=(zathura zathura-pdf-poppler)
