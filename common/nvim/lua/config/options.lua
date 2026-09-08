@@ -64,26 +64,3 @@ vim.g.coq_settings = {
     auto_start = false
 }
 
--- Clipboard configuration
--- On Linux, Neovim uses wl-copy (Wayland) or xclip (X11).
--- If neither is installed or when running over SSH, fall back to native OSC 52.
-if vim.fn.has("mac") == 0 then
-    local has_clipboard_tool = vim.fn.executable("wl-copy") == 1
-        or vim.fn.executable("xclip") == 1
-        or vim.fn.executable("xsel") == 1
-
-    if not has_clipboard_tool then
-        vim.g.clipboard = {
-            name = "OSC 52",
-            copy = {
-                ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
-                ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
-            },
-            paste = {
-                ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
-                ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
-            },
-        }
-    end
-end
-
