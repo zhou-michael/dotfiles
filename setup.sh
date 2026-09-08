@@ -178,7 +178,6 @@ link_path "$DOTFILES_DIR/common/git" "$HOME/.config/git"
 link_path "$DOTFILES_DIR/common/kitty" "$HOME/.config/kitty"
 link_path "$DOTFILES_DIR/common/alacritty" "$HOME/.config/alacritty"
 link_path "$DOTFILES_DIR/common/fish" "$HOME/.config/fish"
-link_path "$DOTFILES_DIR/common/zathura" "$HOME/.config/zathura"
 link_path "$DOTFILES_DIR/common/neofetch" "$HOME/.config/neofetch"
 link_path "$DOTFILES_DIR/common/emacs" "$HOME/.emacs.d"
 
@@ -190,14 +189,13 @@ case "$TARGET_ENV" in
     macos)
         log_step "Installing macOS Configurations"
         link_path "$DOTFILES_DIR/macos/zshrc.local" "$HOME/.zshrc.local"
-        link_path "$DOTFILES_DIR/macos/sketchybar" "$HOME/.config/sketchybar"
         link_path "$DOTFILES_DIR/macos/skhd" "$HOME/.config/skhd"
-        link_path "$DOTFILES_DIR/macos/yabai" "$HOME/.config/yabai"
         ;;
 
     popos)
         log_step "Installing Pop!_OS / Linux Configurations"
         link_path "$DOTFILES_DIR/popos/zshrc.local" "$HOME/.zshrc.local"
+        link_path "$DOTFILES_DIR/popos/zathura" "$HOME/.config/zathura"
 
         # Task runner binary
         link_path "$DOTFILES_DIR/popos/bin/run-user-cron" "$HOME/.local/bin/run-user-cron"

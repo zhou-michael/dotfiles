@@ -18,16 +18,14 @@ Personal dotfiles monorepo supporting **macOS**, **Pop!_OS (Linux)**, and **Ubun
   - `kitty/` → `~/.config/kitty/`
   - `alacritty/` → `~/.config/alacritty/`
   - `fish/` → `~/.config/fish/`
-  - `zathura/` → `~/.config/zathura/`
   - `neofetch/` → `~/.config/neofetch/`
   - `emacs/` → `~/.emacs.d/`
   - `michael.sty` → `~/texmf/tex/latex/common/michael.sty`
 - `macos/` — macOS workstation specific configs:
-  - `sketchybar/` → `~/.config/sketchybar/`
   - `skhd/` → `~/.config/skhd/`
-  - `yabai/` → `~/.config/yabai/`
   - `zshrc.local` → `~/.zshrc.local` (Homebrew, Postgres 16, Juliaup)
 - `popos/` — Pop!_OS Linux workstation specific configs:
+  - `zathura/` → `~/.config/zathura/`
   - `bin/run-user-cron` → `~/.local/bin/run-user-cron`
   - `systemd/` → `~/.config/systemd/user/` (user-cron@.service, user-cron-{daily,weekly}.timer)
   - `cron/daily/`, `cron/weekly/` → `~/.config/cron/{daily,weekly}/`
@@ -35,6 +33,9 @@ Personal dotfiles monorepo supporting **macOS**, **Pop!_OS (Linux)**, and **Ubun
 - `ubuntu/` — Ubuntu / WSL2 configs:
   - `wsl.conf` — WSL2 configuration template for `/etc/wsl.conf`
   - `zshrc.local` → `~/.zshrc.local` (WSL interop helpers for clip.exe, explorer.exe)
+- `archive/` — Legacy / inactive configs:
+  - `sketchybar/` — macOS status bar config & plugins
+  - `yabai/` — Tiling window manager config
 
 ## Deployment
 

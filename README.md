@@ -23,19 +23,17 @@ dotfiles/
 │   ├── kitty/               # Kitty terminal emulator configuration
 │   ├── alacritty/           # Alacritty terminal emulator configuration
 │   ├── fish/                # Fish shell functions, completions, and config
-│   ├── zathura/             # Zathura document viewer configuration
 │   ├── neofetch/            # Neofetch system info display
 │   ├── emacs/               # Emacs configuration
 │   └── michael.sty          # LaTeX macros package for academic math & probability
 │
 ├── macos/                   # macOS workstation specific
 │   ├── zshrc.local          # Homebrew paths, Postgres 16, Juliaup environment
-│   ├── yabai/               # Tiling window manager configuration
-│   ├── skhd/                # Modal hotkey daemon configuration
-│   └── sketchybar/          # macOS status bar orchestration and shell plugins
+│   └── skhd/                # Modal hotkey daemon configuration
 │
 ├── popos/                   # Pop!_OS / Linux workstation specific
 │   ├── zshrc.local          # Linux PATH and local environment hooks
+│   ├── zathura/             # Zathura document viewer configuration
 │   ├── bin/
 │   │   └── run-user-cron    # Modular user-level cron task runner with notifications
 │   ├── systemd/
@@ -48,9 +46,13 @@ dotfiles/
 │           ├── 10-omnigent-sync.sh        # Autonomous dev branch rebase & maintenance
 │           └── 90-system-weekly-report.sh # System telemetry & weekly report publisher
 │
-└── ubuntu/                  # Ubuntu / WSL2 specific
-    ├── wsl.conf             # WSL2 configuration (systemd=true, interop, automount)
-    └── zshrc.local          # WSL environment & Windows interoperability helpers
+├── ubuntu/                  # Ubuntu / WSL2 specific
+│   ├── wsl.conf             # WSL2 configuration (systemd=true, interop, automount)
+│   └── zshrc.local          # WSL environment & Windows interoperability helpers
+│
+└── archive/                 # Archived configurations
+    ├── sketchybar/          # macOS status bar orchestration and shell plugins
+    └── yabai/               # Tiling window manager configuration
 ```
 
 ---
@@ -76,7 +78,7 @@ Run the automated installer:
 You can explicitly target a specific profile regardless of the host OS:
 
 ```bash
-./setup.sh macos     # Deploy macOS profile (skhd, yabai, sketchybar, etc.)
+./setup.sh macos     # Deploy macOS profile (skhd, homebrew & environment paths)
 ./setup.sh popos     # Deploy Pop!_OS profile (systemd timers, user cron, etc.)
 ./setup.sh ubuntu    # Deploy Ubuntu / WSL profile (WSL interop helpers, etc.)
 ```
