@@ -1,0 +1,20 @@
+# Ubuntu / WSL Specific Zsh Configuration
+
+# Local environment & bins
+[[ -f "$HOME/.local/bin/env" ]] && . "$HOME/.local/bin/env"
+
+if [[ -d "$HOME/.local/bin" ]]; then
+    export PATH="$HOME/.local/bin:$PATH"
+fi
+
+# WSL Interop Helpers
+if grep -qi microsoft /proc/version 2>/dev/null; then
+    # Windows clipboard integration
+    if command -v clip.exe >/dev/null 2>&1; then
+        alias pbcopy="clip.exe"
+    fi
+    # Windows Explorer open helper
+    if command -v explorer.exe >/dev/null 2>&1; then
+        alias open="explorer.exe"
+    fi
+fi

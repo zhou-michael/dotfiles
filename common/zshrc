@@ -1,0 +1,51 @@
+# Common Zsh Configuration (Cross-Platform)
+
+# Path to your oh-my-zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+
+# Theme
+ZSH_THEME="robbyrussell"
+
+# Plugins
+plugins=(
+    git
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+)
+
+if [[ -f "$ZSH/oh-my-zsh.sh" ]]; then
+    source "$ZSH/oh-my-zsh.sh"
+fi
+
+# Aliases
+alias rm="rm -i"
+
+# Functions
+function mkcd() {
+    mkdir -p "$@" && cd "$1" || return 1
+}
+export -f mkcd 2>/dev/null || true
+
+# Starship prompt
+if command -v starship >/dev/null 2>&1; then
+    eval "$(starship init zsh)"
+fi
+
+# Vi mode
+set -o vi
+
+# Autosuggestion keybindings (Ctrl-F to accept)
+bindkey '^f' autosuggest-accept 2>/dev/null || true
+
+# Load environment helpers if present
+[[ -f "$HOME/.local/bin/env" ]] && . "$HOME/.local/bin/env"
+
+# Ensure local bin is on PATH
+if [[ -d "$HOME/.local/bin" ]]; then
+    export PATH="$HOME/.local/bin:$PATH"
+fi
+
+# Source machine/OS-specific overrides if present
+if [[ -f "$HOME/.zshrc.local" ]]; then
+    source "$HOME/.zshrc.local"
+fi

@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+set -uo pipefail
+
+INTERVAL="${1:-}"
+if [ -z "$INTERVAL" ]; then
+    echo "Usage: run-user-cron <interval> (e.g. daily, weekly)" >&2
+    exit 1
+fi
+
+export PATH="$HOME/.local/bin:/usr/local/bin:/usr/bin:/bin:$PATH"
+
+TASKS_DIR="$HOME/.config/cron/$INTERVAL"
+LOG_DIR="$HOME/.local/state/cron/$INTERVAL"
+mkdir -p "$LOG_DIR"
+
+echo "[$(date '+%Y-%m-%d %H:%M:%S')] === Starting $INTERVAL user cron tasks ==="
+
+if [ ! -d "$TASKS_DIR" ]; then
+    echo "No task directory found at $TASKS_DIR"
+    exit 0
+fi
+
+FAILED_COUNT=0
+TOTAL_COUNT=0
+
+# Iterate through executable files in the interval folder
+for task in "$TASKS_DIR"/*; do
+    [ -e "$task" ] || continue
+    [ -x "$task" ] || continue
+
+    TOTAL_COUNT=$((TOTAL_COUNT + 1))
+    TASK_NAME="$(basename "$task")"
+    TASK_LOG="$LOG_DIR/${TASK_NAME}.log"
+    START_TIME=$(date +%s)
+
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] Running task: $TASK_NAME"
+    echo "=== Run started at $(date '+%Y-%m-%d %H:%M:%S') ===" >> "$TASK_LOG"
+
+    # Execute task and capture output to individual log file while streaming
+    if "$task" 2>&1 | tee -a "$TASK_LOG"; then
+        END_TIME=$(date +%s)
+        DURATION=$((END_TIME - START_TIME))
+        echo "[$(date '+%Y-%m-%d %H:%M:%S')] [OK] $TASK_NAME completed in ${DURATION}s"
+        echo "=== Run completed successfully in ${DURATION}s ===" >> "$TASK_LOG"
+    else
+        EXIT_CODE=$?
+        FAILED_COUNT=$((FAILED_COUNT + 1))
+        END_TIME=$(date +%s)
+        DURATION=$((END_TIME - START_TIME))
+        echo "[$(date '+%Y-%m-%d %H:%M:%S')] [FAIL] $TASK_NAME failed with exit code $EXIT_CODE after ${DURATION}s" >&2
+        echo "=== Run failed with exit code $EXIT_CODE in ${DURATION}s ===" >> "$TASK_LOG"
+
+        if command -v notify-send >/dev/null 2>&1; then
+            notify-send -u critical -a "User Cron" "Cron Task Failed ($INTERVAL)" "Task '$TASK_NAME' failed. Check $TASK_LOG"
+        fi
+    fi
+    echo "" >> "$TASK_LOG"
+done
+
+echo "[$(date '+%Y-%m-%d %H:%M:%S')] === Finished $INTERVAL cron: $TOTAL_COUNT run, $FAILED_COUNT failed ==="
+
+if [ "$FAILED_COUNT" -gt 0 ]; then
+    exit 1
+fi

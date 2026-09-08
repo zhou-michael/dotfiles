@@ -1,0 +1,10 @@
+[Unit]
+Description=Run Daily User Cron Tasks (with catch-up on wake)
+
+[Timer]
+OnCalendar=*-*-* 04:00:00
+Persistent=true
+Unit=user-cron@daily.service
+
+[Install]
+WantedBy=timers.target
