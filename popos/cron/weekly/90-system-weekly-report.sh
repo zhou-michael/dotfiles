@@ -28,6 +28,54 @@ REBOOT_REQUIRED="No"
 if [ -f /var/run/reboot-required ]; then
     REBOOT_REQUIRED="Yes ($(cat /var/run/reboot-required.pkgs 2>/dev/null | tr '\n' ' ' || true))"
 fi
+THERMAL_INFO="$(python3 -c '
+import glob, os, subprocess
+
+lines = []
+for path in sorted(glob.glob("/sys/class/hwmon/hwmon*")):
+    name_file = os.path.join(path, "name")
+    if not os.path.exists(name_file): continue
+    name = open(name_file).read().strip()
+    if name in ("k10temp", "coretemp"):
+        for f in sorted(glob.glob(os.path.join(path, "temp*_input"))):
+            lbl_file = f[:-6] + "_label"
+            lbl = open(lbl_file).read().strip() if os.path.exists(lbl_file) else os.path.basename(f[:-6])
+            try:
+                c = int(open(f).read().strip()) / 1000.0
+                lines.append(f"CPU ({lbl}): {c:.1f} °C")
+            except: pass
+    elif name == "nvme":
+        dev_link = os.path.realpath(os.path.join(path, "device"))
+        model = "NVMe"
+        for m in [os.path.join(dev_link, "model"), *glob.glob(os.path.join(dev_link, "nvme*", "model"))]:
+            if os.path.exists(m):
+                model = open(m).read().strip()
+                break
+        for f in sorted(glob.glob(os.path.join(path, "temp*_input"))):
+            lbl_file = f[:-6] + "_label"
+            lbl = open(lbl_file).read().strip() if os.path.exists(lbl_file) else os.path.basename(f[:-6])
+            try:
+                c = int(open(f).read().strip()) / 1000.0
+                lines.append(f"NVMe [{model}] ({lbl}): {c:.1f} °C")
+            except: pass
+    elif "wmi" in name or name in ("it87", "nct6775"):
+        for f in sorted(glob.glob(os.path.join(path, "temp*_input"))):
+            lbl_file = f[:-6] + "_label"
+            lbl = open(lbl_file).read().strip() if os.path.exists(lbl_file) else os.path.basename(f[:-6])
+            try:
+                c = int(open(f).read().strip()) / 1000.0
+                lines.append(f"Motherboard ({lbl}): {c:.1f} °C")
+            except: pass
+
+try:
+    gpu = subprocess.check_output(["nvidia-smi", "--query-gpu=name,temperature.gpu", "--format=csv,noheader"], stderr=subprocess.DEVNULL, text=True).strip()
+    if gpu:
+        parts = [p.strip() for p in gpu.split(",")]
+        lines.append(f"GPU [{parts[0]}]: {parts[1]} °C")
+except: pass
+
+print("\n".join(lines) if lines else "No thermal sensors detected")
+' 2>/dev/null || echo 'Thermal telemetry unavailable')"
 
 # 2. Gather Dev Repository Status (Omnigent)
 OMNIGENT_STATUS="N/A"
@@ -61,6 +109,8 @@ Raw Telemetry:
 $DISK_INFO
 - Memory:
 $MEM_INFO
+- Thermal Vitals:
+$THERMAL_INFO
 - Reboot Required: $REBOOT_REQUIRED
 - Failed System Services:
 $SYSTEMD_FAILED
@@ -73,11 +123,12 @@ $CRON_LOGS
 
 Report Requirements:
 1. Title: # Weekly Status Report: pop ($REPORT_DATE)
-2. Status Banner: 🟢 Healthy, 🟡 Warning, or 🔴 Action Needed based on cron errors, low disk space, or failed services.
+2. Status Banner: 🟢 Healthy, 🟡 Warning, or 🔴 Action Needed based on cron errors, low disk space, high thermal warnings, or failed services.
 3. Section 'Cron & Maintenance Scorecard': Summary of all weekly and daily tasks executed, noting pass/fail status and durations.
 4. Section 'System Vitals': Concise table or bullet points for Disk, RAM, Uptime, and Reboot flags.
-5. Section 'Development Repositories': Status of ~/Documents/omnigent (active branch, sync state).
-6. Section 'Action Items': Any manual follow-ups required (or 'None - all systems nominal').
+5. Section 'Thermal Vitals': Table summarizing CPU, GPU, NVMe, and Motherboard temperatures with health status indicators (🟢 Nominal, 🟡 Elevated, 🔴 Throttle/Critical).
+6. Section 'Development Repositories': Status of ~/Documents/omnigent (active branch, sync state).
+7. Section 'Action Items': Any manual follow-ups required (or 'None - all systems nominal').
 Output ONLY the Markdown document, with no conversational filler."
 
 REPORT_CONTENT="$(agy -p "$PROMPT" --print-timeout 5m0s --dangerously-skip-permissions)"
