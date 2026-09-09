@@ -16,7 +16,6 @@ Personal dotfiles monorepo supporting **macOS**, **Pop!_OS (Linux)**, and **Ubun
   - `tmux/` → `~/.config/tmux/` and `~/.tmux.conf`
   - `git/` → `~/.config/git/` and `~/.gitconfig`
   - `kitty/` → `~/.config/kitty/`
-  - `alacritty/` → `~/.config/alacritty/`
   - `fish/` → `~/.config/fish/`
   - `neofetch/` → `~/.config/neofetch/`
   - `emacs/` → `~/.emacs.d/`
@@ -31,6 +30,7 @@ Personal dotfiles monorepo supporting **macOS**, **Pop!_OS (Linux)**, and **Ubun
 - `ubuntu/` — Ubuntu / WSL2 configs:
   - `wsl.conf` — WSL2 configuration template for `/etc/wsl.conf`
 - `archive/` — Legacy / inactive configs:
+  - `alacritty/` — Alacritty terminal emulator config
   - `sketchybar/` — macOS status bar config & plugins
   - `yabai/` — Tiling window manager config
 

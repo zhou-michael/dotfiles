@@ -303,7 +303,6 @@ link_path "$DOTFILES_DIR/common/tmux/tmux.conf" "$HOME/.tmux.conf"
 link_path "$DOTFILES_DIR/common/git/config" "$HOME/.gitconfig"
 link_path "$DOTFILES_DIR/common/git" "$HOME/.config/git"
 link_path "$DOTFILES_DIR/common/kitty" "$HOME/.config/kitty"
-link_path "$DOTFILES_DIR/common/alacritty" "$HOME/.config/alacritty"
 link_path "$DOTFILES_DIR/common/neofetch" "$HOME/.config/neofetch"
 link_path "$DOTFILES_DIR/common/emacs" "$HOME/.emacs.d"
 

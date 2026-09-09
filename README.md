@@ -24,7 +24,6 @@ dotfiles/
 │   ├── tmux/                # Tmux configuration (Catppuccin theme, vim navigation)
 │   ├── git/                 # Git user configuration (nvim editor default)
 │   ├── kitty/               # Kitty terminal emulator configuration
-│   ├── alacritty/           # Alacritty terminal emulator configuration
 │   ├── neofetch/            # Neofetch system info display
 │   ├── emacs/               # Emacs configuration
 │   └── michael.sty          # LaTeX macros package for academic math & probability
@@ -50,6 +49,7 @@ dotfiles/
 │   └── wsl.conf             # WSL2 configuration (systemd=true, interop, automount)
 │
 └── archive/                 # Archived configurations
+    ├── alacritty/           # Alacritty terminal emulator configuration
     ├── sketchybar/          # macOS status bar orchestration and shell plugins
     └── yabai/               # Tiling window manager configuration
 ```
