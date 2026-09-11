@@ -1,2 +1,60 @@
+# ==============================================================================
+# Michael Zhou's Zathura Configuration
+# ==============================================================================
+
+# Clipboard synchronization
 set selection-clipboard clipboard
 
+# Include Catppuccin Mocha Theme (matches Kitty and Neovim)
+include catppuccin-mocha
+
+# Typography & UI styling
+set font "NotoSansM Nerd Font 10"
+set window-title-basename true
+set statusbar-home-tilde true
+set statusbar-page-percent true
+set guioptions "s"  # Clean aesthetic: display statusbar only, no scrollbar chrome
+
+# Smooth scrolling & rendering
+set scroll-page-aware true
+set smooth-scroll true
+set scroll-step 50
+set zoom-step 10
+set zoom-min 10
+set zoom-max 1000
+
+# Continuous single-page layout with balanced padding
+set pages-per-row 1
+set scroll-full-overlap 0.05
+set page-padding 8
+
+# SyncTeX integration (VimTeX / Neovim forward and backward search)
+# Ctrl+Click in Zathura jumps directly to Neovim at that line
+set synctex true
+set synctex-editor-command "nvr --remote-silent +%{line} %{input} || nvim +%{line} %{input}"
+
+# Keybindings
+# Quick toggle between authentic PDF rendering and Catppuccin dark mode
+map i recolor
+map <C-r> recolor
+
+# Vim-style half-page jumps
+map u scroll half-up
+map d scroll half-down
+map <C-u> scroll half-up
+map <C-d> scroll half-down
+
+# Zoom controls
+map K zoom in
+map J zoom out
+map = zoom reset
+
+# Window fit modes
+map a adjust_window best-fit
+map s adjust_window width
+map D toggle_page_mode
+
+# Document controls
+map r reload
+map R rotate
+map p print

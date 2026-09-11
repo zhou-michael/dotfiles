@@ -46,6 +46,9 @@ if [[ -d "$HOME/.local/bin" ]]; then
     export PATH="$HOME/.local/bin:$PATH"
 fi
 
+# Omnigent
+export OMNIGENT_WS_ALLOWED_ORIGINS="https://pop.tail15ede2.ts.net,http://pop.tail15ede2.ts.net"
+
 # ==============================================================================
 # OS-Specific Environment ($OSTYPE)
 # ==============================================================================
