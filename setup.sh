@@ -306,8 +306,10 @@ link_path "$DOTFILES_DIR/common/kitty" "$HOME/.config/kitty"
 link_path "$DOTFILES_DIR/common/neofetch" "$HOME/.config/neofetch"
 link_path "$DOTFILES_DIR/common/emacs" "$HOME/.emacs.d"
 
-# LaTeX Macros
+# LaTeX Macros & Tools
 link_path "$DOTFILES_DIR/common/michael.sty" "$HOME/texmf/tex/latex/common/michael.sty"
+link_path "$DOTFILES_DIR/common/latexmk/latexmkrc" "$HOME/.config/latexmk/latexmkrc"
+link_path "$DOTFILES_DIR/common/latexmk/latexmkrc" "$HOME/.latexmkrc"
 
 # 2. Environment-Specific Configurations
 case "$TARGET_ENV" in

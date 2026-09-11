@@ -26,6 +26,7 @@ dotfiles/
 │   ├── kitty/               # Kitty terminal emulator configuration
 │   ├── neofetch/            # Neofetch system info display
 │   ├── emacs/               # Emacs configuration
+│   ├── latexmk/             # Global latexmk configuration (build/ output directory)
 │   └── michael.sty          # LaTeX macros package for academic math & probability
 │
 ├── macos/                   # macOS workstation specific
@@ -138,3 +139,9 @@ The Neovim config in `common/nvim` uses `lazy.nvim` with lazy-loading enabled by
 - **Syntax**: `nvim-treesitter` and `treesitter-context`
 - **UI & Theme**: Catppuccin Mocha, `lualine`, `bufferline`, `noice.nvim`, `which-key`
 - **LaTeX**: `vimtex`, `knap`, and custom math snippets in `nvim/luasnippets/tex.lua`
+ 
+---
+
+## 📄 Related Projects & Templates
+
+- **[Michael's Resume Template (`michaels-resume-template`)](https://github.com/zhou-michael/michaels-resume-template)**: Modern, ATS-compliant LaTeX resume class (`michael-resume.cls`) and configurable template inspired by `michael.sty`.

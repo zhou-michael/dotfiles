@@ -1,0 +1,6 @@
+# ==============================================================================
+# Global latexmk configuration
+# Automatically compiles into build/ directory and generates PDF via pdflatex
+# ==============================================================================
+$out_dir = 'build';
+$pdf_mode = 1;
